@@ -1,0 +1,20 @@
+columns:
+  
+    - Date : Datetime
+    - Open: Double
+    - High: Double
+    - Low: Double
+    - Close: Double
+    - Adj Close: Double
+    - Volume: Int32
+
+
+numerical_columns:
+  - Open
+  - High
+  - Low
+  - Close
+  - Adj Close
+  - Volume
+drop_columns:
+   
