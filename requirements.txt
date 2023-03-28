@@ -23,7 +23,6 @@ tensorflow-intel==2.11.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.2.0
 threadpoolctl==3.1.0
-pip install --upgrade pip
 yfinance==0.2.12
 zipp 
 -e 
