@@ -25,4 +25,4 @@ termcolor==2.2.0
 threadpoolctl==3.1.0
 yfinance==0.2.12
 zipp 
--e 
+-e.
