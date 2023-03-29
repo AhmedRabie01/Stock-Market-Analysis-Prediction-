@@ -35,7 +35,6 @@ jobs:
 
       - name: Install Utilities
         run: |
-          python -m pip install --upgrade pip
           sudo apt-get update
           sudo apt-get install -y jq unzip
       - name: Configure AWS credentials
