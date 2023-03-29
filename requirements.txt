@@ -16,4 +16,5 @@ wincertstore==0.2
 neuro-mf==0.0.5
 yfinance==0.2.12
 tensorflow
+typing
 -e .
