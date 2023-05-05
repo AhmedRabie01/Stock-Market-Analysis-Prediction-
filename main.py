@@ -67,7 +67,7 @@ async def train_route():
     except Exception as e:
         return Response(f"Error Occurred! {e}")
         
- # Define your API endpoint for prediction
+# Define your API endpoint for prediction
 @app.post("/predict")
 async def predict_route(file: UploadFile = File(...)):
     try:
@@ -134,7 +134,7 @@ def main():
             logging.exception(e)
 
 if __name__=="__main__":
-    #main()
-    # set_env_variable('env.yaml')
+
     main()
     app_run(app, host=APP_HOST, port=APP_PORT)
+
