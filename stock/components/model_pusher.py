@@ -5,7 +5,7 @@ from stock.entity.config_entity import ModelEvaluationConfig,ModelPusherConfig
 import os,sys
 from stock.ml.metric.classification_metric import get_classification_score
 from stock.utils.main_utils import save_object,load_object,write_yaml_file
-
+import datetime
 import shutil
 
 class ModelPusher:
@@ -25,8 +25,13 @@ class ModelPusher:
         try:
             trained_model_path = self.model_eval_artifact.trained_model_path
             
+            # Add version number to model file name
+            current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            model_file_name = f"model_{current_time}.pkl"
+            model_file_path = os.path.join(self.model_pusher_config.model_file_path, model_file_name)
+
+
             #Creating model pusher dir to save model
-            model_file_path = self.model_pusher_config.model_file_path
             os.makedirs(os.path.dirname(model_file_path),exist_ok=True)
             shutil.copy(src=trained_model_path, dst=model_file_path)
 

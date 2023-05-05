@@ -5,7 +5,7 @@ from stock.entity.artifact_entity import DataTransformationArtifact,ModelTrainer
 from stock.entity.config_entity import ModelTrainerConfig
 import os,sys
 from stock.ml.metric.regression_matric import get_regression_score
-from stock.ml.model.estimator import SensorModel
+from stock.ml.model.estimator import StockModel
 from stock.utils.main_utils import save_object,load_object
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
@@ -77,12 +77,15 @@ class ModelTrainer:
             #loading training array and testing array
             train_arr = load_numpy_array_data(train_file_path)
             test_arr =  load_numpy_array_data(test_file_path)
+
+            # splitting the data 
             x_train,y_train = self.split_timeseries_data(train_arr)
             x_test,y_test = self.split_timeseries_data(test_arr)
             
-
+            # model prediction 
             model = self.train_model(x_train, y_train)
             y_train_pred = model.predict(x_train)
+            
             
             rmse_train = get_regression_score(y_train ,y_train_pred )
 
@@ -104,7 +107,7 @@ class ModelTrainer:
             
             model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
             os.makedirs(model_dir_path,exist_ok=True)
-            sensor_model = SensorModel(preprocessor=preprocessor,model=model)
+            sensor_model = StockModel(preprocessor=preprocessor,model=model)
             save_object(self.model_trainer_config.trained_model_file_path, obj=sensor_model)
 
             #model trainer artifact

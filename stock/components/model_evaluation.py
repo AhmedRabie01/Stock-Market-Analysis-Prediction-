@@ -9,13 +9,14 @@ try :
     from stock.ml.metric.regression_matric import get_regression_score
 except Exception as e:
     raise StockException(e,sys)
-from stock.ml.model.estimator import SensorModel
+from stock.ml.model.estimator import StockModel
 from stock.utils.main_utils import save_object,load_object,write_yaml_file
 from stock.ml.model.estimator import ModelResolver
 from stock.constant.training_pipeline import TARGET_COLUMN
 from stock.ml.model.estimator import TargetValueMapping
 import pandas  as  pd
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 
 class ModelEvaluation:
@@ -34,7 +35,10 @@ class ModelEvaluation:
             raise StockException(e,sys)
     
     def split_timeseries_data(self ,train_arr : np.ndarray  ):
+                
 
+            if np.ndim(train_arr) <= 2:
+                print('shape of trainig arr is {}'.format(train_arr.shape))
                 training_data_len = int(np.ceil( len(train_arr) * .95 ))
             
                 train_data = train_arr[0:int(training_data_len), :]
@@ -43,23 +47,49 @@ class ModelEvaluation:
                 x_train = []
                 y_train = []
     
-                for i in range(60, len(train_data)):
-                    x_train.append(train_data[i-60:i, 0])
-                    y_train.append(train_data[i, 0])
-                    if i<= 61:
-                        print(x_train)
-                        print(y_train)
-                        print()
-    
-                # Convert the x_train and y_train to numpy arrays 
-                x_train, y_train = np.array(x_train), np.array(y_train)
+                window_size = 60
+                x_train = np.roll(train_data, -window_size, axis=0)[:-window_size]
+                y_train = train_data[window_size:]
+
     
                 # Reshape the data
-                x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
-                # x_train.shape
-                
+                x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1]))
+                y_train = np.reshape(y_train, (y_train.shape[0], 1))
+
+                # Add an additional dimension to y_train
+                print('shape of x_train  is {}'.format(x_train.shape))
+                print('shape of y_train arr is {}'.format(y_train.shape))
                 return x_train, y_train
 
+            else:   
+                print('shape of trainig arr is {}'.format(train_arr.shape))
+                training_data_len = int(np.ceil( len(train_arr) * .95 ))
+            
+                train_data = train_arr[0:int(training_data_len), :]
+            
+                # Split the data into x_train and y_train data sets
+                x_train = []
+                y_train = []
+    
+                window_size = 60
+                x_train = np.roll(train_data, -window_size, axis=0)[:-window_size]
+                y_train = train_data[window_size:]
+
+    
+                # Reshape the data
+                x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1]))
+                y_train = np.squeeze(y_train, axis=2)
+                # Add an additional dimension to y_train
+                print('shape of x_train  is {}'.format(x_train.shape))
+                print('shape of y_train arr is {}'.format(y_train.shape))
+
+                return x_train, y_train
+    # Remove usage of IterativeImputer during prediction step
+
+    def replace_nan_with_value(self, arr):
+        """Replace NaN values in the array with a specified value."""
+        arr = np.nan_to_num(arr, nan=0)
+        return arr 
 
     def initiate_model_evaluation(self)->ModelEvaluationArtifact:
         try:
@@ -76,8 +106,11 @@ class ModelEvaluation:
 
 
             all_data = np.concatenate((x_train, x_test), axis=0)
-            y_true = np.concatenate((y_train, y_test), axis=0)
+            print('shape of all_data  is {}'.format(all_data.shape))
             
+            y_true = np.concatenate((y_train, y_test), axis=0)
+            print('shape of y_true  is {}'.format(y_true.shape))
+
             train_model_file_path = self.model_trainer_artifact.trained_model_file_path
             model_resolver = ModelResolver()
             is_model_accepted=True
@@ -98,6 +131,9 @@ class ModelEvaluation:
             latest_model = load_object(file_path=latest_model_path)
             train_model = load_object(file_path=train_model_file_path)
             
+
+
+            all_data = np.ma.masked_invalid(all_data)
             y_trained_pred = train_model.predict(all_data)
             y_latest_pred  =latest_model.predict(all_data)
 
