@@ -2,6 +2,13 @@
 
  This a End To End project, we aim to build a machine learning model that predicts the stock prices of Microsoft. The data used in this project was collected from Yahoo Finance, and the analysis and predictions were made using Python and its libraries.
 
+
+# project's Power BI Dashboard screen shots
+![project web app](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/stock_market_2.jpg)
+
+![project prediction](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/stock_market.jpg)
+
+
 # Data Collection:
 
 The data used in this project consists of historical stock prices for the four companies from January 1st, 2010 to December 31st, 2023. The data was collected from Yahoo Finance using the yfinance library in Python.
