@@ -4,9 +4,9 @@
 
 
 # project's Power BI Dashboard screen shots
-![project web app]([https://github.com/AhmedRabie01/Arabic-Sentiment-Analysis-using-Arabic-BERT/blob/main/photo/2023-07-20%20(3).png](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/2023-10-17%20(2).png))
+![project web app](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/12ef23efef7fc403bb186f8dcfaa8db08efa95e8/photo/2023-10-17%20(2).png)
 
-![project prediction]([https://github.com/AhmedRabie01/Arabic-Sentiment-Analysis-using-Arabic-BERT/blob/main/photo/2023-07-20%20(5).png](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/2023-10-17%20(9).png))
+![project prediction](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/12ef23efef7fc403bb186f8dcfaa8db08efa95e8/photo/2023-10-17%20(9).png)
 
 
 # Data Collection:
