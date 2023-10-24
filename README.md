@@ -6,7 +6,7 @@
 # project's Power BI Dashboard screen shots
 ![project web app](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/stock_market_2.jpg)
 
-![project prediction](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/stock_market.jpg)
+![project prediction](https://github.com/AhmedRabie01/Stock-Market-Analysis-Prediction-/blob/main/photo/stock_market_.jpg)
 
 
 # Data Collection:
